@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { loadProfile, saveProfile, DEFAULT_PROFILE } from "@/lib/profile-store";
+import { loadResume, type ResumeData } from "@/lib/resume-store";
+import ResumeUpload from "@/components/ResumeUpload";
 import type { UserProfile, ConnectionStrength, Connection } from "@/types";
 import {
   CONNECTION_STRENGTH_LABELS,
@@ -18,9 +20,11 @@ export default function ProfilePage() {
   const [connCompany, setConnCompany] = useState("");
   const [connStrength, setConnStrength] = useState<ConnectionStrength>("colleague");
   const [saved, setSaved] = useState(false);
+  const [resume, setResume] = useState<ResumeData | null>(null);
 
   useEffect(() => {
     setProfile(loadProfile());
+    setResume(loadResume());
   }, []);
 
   function handleSave() {
@@ -140,6 +144,18 @@ export default function ProfilePage() {
             onAdd={addConnection}
             onRemove={removeConnection}
             onStrengthUpdate={updateConnectionStrength}
+          />
+        </Section>
+
+        {/* Resume */}
+        <Section
+          title="Resume"
+          hint="Upload your resume so the AI can generate tailored cover letters for each role you apply to."
+        >
+          <ResumeUpload
+            current={resume}
+            onUploaded={setResume}
+            onCleared={() => setResume(null)}
           />
         </Section>
 

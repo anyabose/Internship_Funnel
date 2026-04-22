@@ -113,6 +113,16 @@ export const STATUS_COLORS: Record<ApplicationStatus, string> = {
   rejected: "bg-red-100 text-red-700",
 };
 
+export interface ApplicationPackage {
+  internshipId: string;
+  company: string;
+  title: string;
+  subject: string;
+  coverLetter: string;
+  skillsToEmphasize: string[];
+  tips: string[];
+}
+
 export const SOURCE_COLORS: Record<InternshipSource, string> = {
   linkedin: "bg-blue-600",
   wellfound: "bg-black",
